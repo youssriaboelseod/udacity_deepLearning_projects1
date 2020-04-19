@@ -101,17 +101,23 @@ class NeuralNetwork(object):
         # TODO: Backpropagated error terms - Replace these values with your calculations.
         #output_error_term = error * final_outputs * (1 - final_outputs)
         output_error_term = error
-        hidden_error_term = hidden_error * self.activation_function(hidden_outputs) * (1 - self.activation_function(hidden_outputs))
+        #hidden_error_term = hidden_error * self.activation_function(hidden_outputs) * (1 - self.activation_function(hidden_outputs))
         
         #hidden_error = np.dot(output_error_term.T, self.weights_input_to_hidden)
 
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)        
+        #hidden_error_term = np.dot(output_error_term, self.weights_hidden_to_output.T)
+        
         # Weight step (input to hidden)
-        delta_weights_i_h +=  hidden_error_term * X [:,None]
+        #delta_weights_i_h +=  hidden_error_term * X [:,None]
+        delta_weights_i_h += np.dot(X.T, hidden_error_term)
+
         # Weight step (hidden to output)
         #print("__________ delta_weights_i_h in Backpropagated________",delta_weights_i_h)
 
-        delta_weights_h_o +=  output_error_term * hidden_outputs[:,None]
+        #delta_weights_h_o +=  output_error_term * hidden_outputs[:,None]
+        delta_weights_h_o += np.dot(hidden_outputs.T, output_error_term)
+
         return delta_weights_i_h, delta_weights_h_o
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
