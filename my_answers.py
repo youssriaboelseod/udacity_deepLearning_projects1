@@ -97,25 +97,26 @@ class NeuralNetwork(object):
         
         hidden_error = np.dot(self.weights_hidden_to_output,error)
 
-#        output_error_term = error
-        output_error_term=error * final_outputs * (1 - final_outputs)       
-        
+        output_error_term = error
+        #output_error_term=error * final_outputs * (1 - final_outputs)       
         #hidden_error_term = np.dot(output_error_term, self.weights_hidden_to_output.T)
         hidden_error_term =  hidden_error * hidden_outputs * (1 - hidden_outputs)
         #hidden_error=hidden_error_term * hidden_outputs * (1 - hidden_outputs)
-        X=X.reshape(3,1)
-        hidden_error_term = hidden_error_term.reshape(2,1)
-        output_error_term = hidden_error_term.reshape(2,1)
-        hidden_outputs = hidden_outputs.reshape(2,1)
+        #X=X.reshape(3,1)
+        #hidden_error_term = hidden_error_term.reshape(2,1)
+        #output_error_term = output_error_term.reshape(2,1)
+        #hidden_outputs = hidden_outputs.reshape(2,1)
 
-        print("__________ X in Backpropagated________",X)
+        print("__________ hidden_error_term in Backpropagated________",hidden_error_term)
         print("__________ output_error_term in Backpropagated________",output_error_term)
 
         # Weight step (input to hidden)
-        delta_weights_i_h += np.dot(X, hidden_error_term.T)
+        #delta_weights_i_h += np.dot(X, hidden_error_term.T)
+        delta_weights_i_h += (hidden_error_term)*X[:, None]
 
         # Weight step (hidden to output)
-        delta_weights_h_o += np.dot(hidden_outputs.T, output_error_term)
+        #delta_weights_h_o += np.dot(hidden_outputs.T, output_error_term)
+        delta_weights_h_o +=(output_error_term)*hidden_outputs[:, None]
 
         return delta_weights_i_h, delta_weights_h_o
 
