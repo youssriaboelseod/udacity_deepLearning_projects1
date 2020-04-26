@@ -137,7 +137,6 @@ import sys
 
 from my_answers import iterations, learning_rate, hidden_nodes, output_nodes
 
-
 N_i = train_features.shape[1]
 network = NeuralNetwork(N_i, hidden_nodes, output_nodes, learning_rate)
 
@@ -145,7 +144,7 @@ losses = {'train':[], 'validation':[]}
 for ii in range(iterations):
     # Go through a random batch of 128 records from the training data set
     batch = np.random.choice(train_features.index, size=128)
-    X, y = train_features.ix[batch].values, train_targets.ix[batch]['cnt']
+    X, y = train_features.iloc[batch].values, train_targets.iloc[batch]['cnt']
                              
     network.train(X, y)
     
@@ -173,7 +172,7 @@ ax.plot((test_targets['cnt']*std + mean).values, label='Data')
 ax.set_xlim(right=len(predictions))
 ax.legend()
 
-dates = pd.to_datetime(rides.ix[test_data.index]['dteday'])
+dates = pd.to_datetime(rides.iloc[test_data.index]['dteday'])
 dates = dates.apply(lambda d: d.strftime('%b %d'))
 ax.set_xticks(np.arange(len(dates))[12::24])
 _ = ax.set_xticklabels(dates[12::24], rotation=45)

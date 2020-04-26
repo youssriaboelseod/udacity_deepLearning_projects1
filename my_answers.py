@@ -107,8 +107,8 @@ class NeuralNetwork(object):
         #output_error_term = output_error_term.reshape(2,1)
         #hidden_outputs = hidden_outputs.reshape(2,1)
 
-        print("__________ hidden_error_term in Backpropagated________",hidden_error_term)
-        print("__________ output_error_term in Backpropagated________",output_error_term)
+        #print("__________ hidden_error_term in Backpropagated________",hidden_error_term)
+        #print("__________ output_error_term in Backpropagated________",output_error_term)
 
         # Weight step (input to hidden)
         #delta_weights_i_h += np.dot(X, hidden_error_term.T)
@@ -142,14 +142,14 @@ class NeuralNetwork(object):
         #### Implement the forward pass here ####
         # TODO: Hidden layer - replace these values with the appropriate calculations.
         #hidden_inputs = np.dot(features,self.weights_input_to_hidden) # signals into hidden layer
-        hidden_inputs = np.matmul(features,self.weights_input_to_hidden) # signals into hidden layer
+        hidden_inputs = np.dot(features,self.weights_input_to_hidden) # signals into hidden layer
 
         hidden_outputs = self.activation_function (hidden_inputs) # signals from hidden layer
 
         
         # TODO: Output layer - Replace these values with the appropriate calculations.
         #final_inputs = np.dot(hidden_outputs,self.weights_hidden_to_output) # signals into final output layer
-        final_inputs = np.matmul(hidden_outputs,self.weights_hidden_to_output) # signals into final output layer
+        final_inputs = np.dot(hidden_outputs,self.weights_hidden_to_output) # signals into final output layer
 
         #final_outputs = self.activation_function (final_inputs) # signals from final output layer 
         final_outputs = final_inputs # signals from final output layer 
